@@ -29,13 +29,14 @@ int main() {
         cin >> choice;
     }
     while (choice) {
+
         if (choice == 1) { //造零件
             Tire tire("公路轮、麦克纳姆轮", 175);
             vector<Tire> tires;
             for (int i = 0; i < 4; i++) {
                 tires.push_back(tire);
             }
-            BasePlate basePlate("dp12345678", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10, "公路轮", tires);
+            BasePlate basePlate("dp12345678", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10, tires);
             AGXKit agxKit("AGX Xavier", 32, 512, 64, 32, 32);
             BinocularCamera binocularCamera("RealSense D435i", "D430", "1920 1080", 30, 8758, 90);
             MultiLineLidar multiLineLidar("RS-Helios-16p", 16, 100, 8);
@@ -89,13 +90,6 @@ int main() {
             ofstream out("out.txt");
             out << j;
             out.close();
-            cout << "1.初始化学生信息和松灵小车信息" << endl;
-            cout << "2.读取学生信息和松灵小车信息" << endl;
-            cout << "3.单独print 操作" << endl;
-            cout << "4.单独save 操作" << endl;
-            cout << "0.退出" << endl;
-            cout << "请选择：";
-            cin >> choice;
         }
         if (choice == 2) {
             //in
@@ -135,13 +129,6 @@ int main() {
                     }
                     cin >> c;
                 }
-                cout << "1.初始化学生信息和松灵小车信息" << endl;
-                cout << "2.读取学生信息和松灵小车信息" << endl;
-                cout << "3.单独print 操作" << endl;
-                cout << "4.单独save 操作" << endl;
-                cout << "0.退出" << endl;
-                cout << "请选择：";
-                cin >> choice;
             }
             catch (exception &e) {
                 cout << "文件读取错误,未初始化" << endl;
@@ -151,7 +138,7 @@ int main() {
         }
         if (choice == 3) {
             SongLingCar songLingCar("cqusn0000000000000",
-                                    BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10, "公路轮",
+                                    BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10,
                                               vector<Tire>(4, Tire("公路轮、麦克纳姆轮", 175))),
                                     vector<AGXKit>(1, AGXKit("AGX Xavier", 32, 512, 64, 32, 32)),
                                     vector<BinocularCamera>(1,
@@ -161,7 +148,6 @@ int main() {
                                     vector<NineAxisGyroscope>(1, NineAxisGyroscope("CH110", "NXP")),
                                     vector<LCD>(1, LCD("11.6", "super")),
                                     vector<BatteryModule>(1, BatteryModule("24V/15Ah", "24V", 2)));
-
             cout << "1.print 小车信息" << endl;
             cout << "2.print 底盘信息" << endl;
             cout << "3.print AGX套件信息" << endl;
@@ -215,6 +201,7 @@ int main() {
                         x.print();
                     }
                 }
+
                 cout << "按回车键继续" << endl;
                 cin.get();
                 cin.get();
@@ -236,7 +223,7 @@ int main() {
         }
         if (choice == 4) {
             SongLingCar songLingCar("cqusn0000000000000",
-                                    BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10, "公路轮",
+                                    BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10,
                                               vector<Tire>(4, Tire("公路轮、麦克纳姆轮", 175))),
                                     vector<AGXKit>(1, AGXKit("AGX Xavier", 32, 512, 64, 32, 32)),
                                     vector<BinocularCamera>(1,
@@ -302,7 +289,6 @@ int main() {
                 cout << "按回车键继续" << endl;
                 cin.get();
                 cin.get();
-
                 cout << "1.save 小车信息" << endl;
                 cout << "2.save 底盘信息" << endl;
                 cout << "3.save AGX套件信息" << endl;
@@ -319,5 +305,12 @@ int main() {
                 }
             }
         }
+        cout << "1.初始化学生信息和松灵小车信息" << endl;
+        cout << "2.读取学生信息和松灵小车信息" << endl;
+        cout << "3.单独print 操作" << endl;
+        cout << "4.单独save 操作" << endl;
+        cout << "0.退出" << endl;
+        cout << "请选择：";
+        cin >> choice;
     }
 }

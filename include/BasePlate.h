@@ -59,9 +59,6 @@ public:
     void save();
     json toJson();
     void fromJson(json j);
-
-    BasePlate(const char string[11], const char string1[11], int i, int i1, int i2, int i3, const char string2[13],
-              int i4, const char string3[10], vector<Tire> vector1);
 };
 
 #endif // BASEPLATE_H

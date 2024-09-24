@@ -11,8 +11,18 @@ BasePlate::BasePlate() {
     this->maxTravel = 0;
 }
 
-
-
+BasePlate::BasePlate(string id, string model, int wheelBase, int wheelTrack, int minGroundClearance, int minTurningRadius,
+                     string driveMode, int maxTravel, vector<Tire> tire) {
+    this->id = id;
+    this->model = model;
+    this->wheelBase = wheelBase;
+    this->wheelTrack = wheelTrack;
+    this->minGroundClearance = minGroundClearance;
+    this->minTurningRadius = minTurningRadius;
+    this->driveMode = driveMode;
+    this->maxTravel = maxTravel;
+    this->tire = tire;
+}
 BasePlate::~BasePlate() = default;
 
 void BasePlate::setID(string id) {
@@ -166,15 +176,3 @@ void BasePlate::fromJson(json j) {
     }
 }
 
-BasePlate::BasePlate(const char *string, const char *string1, int i, int i1, int i2, int i3, const char *string2,
-                     int i4, const char *string3, vector<Tire> vector1) {
-    this->id = string;
-    this->model = string1;
-    this->wheelBase = i;
-    this->wheelTrack = i1;
-    this->minGroundClearance = i2;
-    this->minTurningRadius = i3;
-    this->driveMode = string2;
-    this->maxTravel = i4;
-    this->tire = std::move(vector1);
-}

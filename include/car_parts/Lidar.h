@@ -8,12 +8,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../nlohmann/json.hpp"
+#include "../../nlohmann/json.hpp"
 
 using namespace std;
 using json = nlohmann::json;
 
-class MultiLineLidar {
+class Lidar {
 private:
     string model;
     int channel;
@@ -21,9 +21,9 @@ private:
     int powerConsumption;
 
 public:
-    MultiLineLidar();
-    MultiLineLidar(string model, int channel, int testRange, int powerConsumption);
-    ~MultiLineLidar();
+    Lidar();
+    Lidar(string model, int channel, int testRange, int powerConsumption);
+    ~Lidar();
 
     void setmodel(string model);
     string getmodel();
@@ -35,8 +35,8 @@ public:
     int getpowerConsumption();
 
     void print();
-    friend ostream &operator<<(ostream &out, const MultiLineLidar &multiLineLidar);
-    friend istream &operator>>(istream &in, MultiLineLidar &multiLineLidar);
+    friend ostream &operator<<(ostream &out, const Lidar &multiLineLidar);
+    friend istream &operator>>(istream &in, Lidar &multiLineLidar);
 
     void save();
     json toJson();

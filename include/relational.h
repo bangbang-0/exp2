@@ -10,7 +10,7 @@
 #include <string>
 #include "../nlohmann/json.hpp"
 #include "Student.h"
-#include "SongLingCar.h"
+#include "Car.h"
 
 using namespace std;
 using json = nlohmann::json;
@@ -18,9 +18,9 @@ using json = nlohmann::json;
 class relational {
 public:
     Student *student;
-    SongLingCar *songLingCar;
+    Car *songLingCar;
 
-    relational(Student *student, SongLingCar *songLingCar);
+    relational(Student *student, Car *songLingCar);
     void show();
 
     friend ostream &operator<<(ostream &out, const relational &relational);

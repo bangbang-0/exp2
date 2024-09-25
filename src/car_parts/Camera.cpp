@@ -1,6 +1,6 @@
-#include "../include/BinocularCamera.h"
+#include "../../include/car_parts/Camera.h"
 
-BinocularCamera::BinocularCamera() {
+Camera::Camera() {
     this->model = "";
     this->camera = "";
     this->RGBFrameResolution = "";
@@ -9,8 +9,8 @@ BinocularCamera::BinocularCamera() {
     this->depthFrameRate = 0;
 }
 
-BinocularCamera::BinocularCamera(string model, string camera, string RGBFrameResolution, int RGBFrameRate, int FOV,
-                                 int depthFrameRate) {
+Camera::Camera(string model, string camera, string RGBFrameResolution, int RGBFrameRate, int FOV,
+               int depthFrameRate) {
     this->model = model;
     this->camera = camera;
     this->RGBFrameResolution = RGBFrameResolution;
@@ -19,57 +19,57 @@ BinocularCamera::BinocularCamera(string model, string camera, string RGBFrameRes
     this->depthFrameRate = depthFrameRate;
 }
 
-BinocularCamera::~BinocularCamera() = default;
+Camera::~Camera() = default;
 
-void BinocularCamera::setmodel(string model) {
+void Camera::setmodel(string model) {
     this->model = model;
 }
 
-string BinocularCamera::getmodel() {
+string Camera::getmodel() {
     return this->model;
 }
 
-void BinocularCamera::setcamera(string camera) {
+void Camera::setcamera(string camera) {
     this->camera = camera;
 }
 
-string BinocularCamera::getcamera() {
+string Camera::getcamera() {
     return this->camera;
 }
 
-void BinocularCamera::setRGBFrameResolution(string RGBFrameResolution) {
+void Camera::setRGBFrameResolution(string RGBFrameResolution) {
     this->RGBFrameResolution = RGBFrameResolution;
 }
 
-string BinocularCamera::getRGBFrameResolution() {
+string Camera::getRGBFrameResolution() {
     return this->RGBFrameResolution;
 }
 
-void BinocularCamera::setRGBFrameRate(int RGBFrameRate) {
+void Camera::setRGBFrameRate(int RGBFrameRate) {
     this->RGBFrameRate = RGBFrameRate;
 }
 
-int BinocularCamera::getRGBFrameRate() {
+int Camera::getRGBFrameRate() {
     return this->RGBFrameRate;
 }
 
-void BinocularCamera::setFOV(int FOV) {
+void Camera::setFOV(int FOV) {
     this->FOV = FOV;
 }
 
-int BinocularCamera::getFOV() {
+int Camera::getFOV() {
     return this->FOV;
 }
 
-void BinocularCamera::setdepthFrameRate(int depthFrameRate) {
+void Camera::setdepthFrameRate(int depthFrameRate) {
     this->depthFrameRate = depthFrameRate;
 }
 
-int BinocularCamera::getdepthFrameRate() {
+int Camera::getdepthFrameRate() {
     return this->depthFrameRate;
 }
 
-void BinocularCamera::print() {
+void Camera::print() {
     cout << "型号：" << this->model << endl;
     cout << "摄像头：" << this->camera << endl;
     cout << "RGB帧分辨率：" << this->RGBFrameResolution << endl;
@@ -78,7 +78,7 @@ void BinocularCamera::print() {
     cout << "深度帧率：" << this->depthFrameRate << endl;
 }
 
-ostream &operator<<(ostream &out, const BinocularCamera &binocularCamera) {
+ostream &operator<<(ostream &out, const Camera &binocularCamera) {
     out << "型号：" << binocularCamera.model << endl;
     out << "摄像头：" << binocularCamera.camera << endl;
     out << "RGB帧分辨率：" << binocularCamera.RGBFrameResolution << endl;
@@ -88,20 +88,20 @@ ostream &operator<<(ostream &out, const BinocularCamera &binocularCamera) {
     return out;
 }
 
-istream &operator>>(istream &in, BinocularCamera &binocularCamera) {
+istream &operator>>(istream &in, Camera &binocularCamera) {
     in >> binocularCamera.model >> binocularCamera.camera >> binocularCamera.RGBFrameResolution
        >> binocularCamera.RGBFrameRate >> binocularCamera.FOV >> binocularCamera.depthFrameRate;
     return in;
 }
 
-void BinocularCamera::save() {
+void Camera::save() {
     json j = this->toJson();
-    ofstream out("BinocularCamera" + to_string(time(nullptr)) + ".json");
+    ofstream out("Camera" + to_string(time(nullptr)) + ".json");
     out << j;
     out.close();
 }
 
-json BinocularCamera::toJson() {
+json Camera::toJson() {
     json j;
     j["model"] = this->model;
     j["camera"] = this->camera;
@@ -112,7 +112,7 @@ json BinocularCamera::toJson() {
     return j;
 }
 
-void BinocularCamera::fromJson(json j) {
+void Camera::fromJson(json j) {
     this->model = j["model"];
     this->camera = j["camera"];
     this->RGBFrameResolution = j["RGBFrameResolution"];

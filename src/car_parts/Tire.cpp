@@ -1,7 +1,7 @@
 //
 // Created by 29789 on 24-9-17.
 //
-#include "../include/Tire.h"
+#include "../../include/car_parts/Tire.h"
 
 Tire::Tire() : model(""), size(0) {}
 

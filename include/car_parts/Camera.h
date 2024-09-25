@@ -8,12 +8,12 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "../nlohmann/json.hpp"
+#include "../../nlohmann/json.hpp"
 
 using namespace std;
 using json = nlohmann::json;
 
-class BinocularCamera {
+class Camera {
 private:
     string model;
     string camera;
@@ -23,10 +23,10 @@ private:
     int depthFrameRate;
 
 public:
-    BinocularCamera();
-    BinocularCamera(string model, string camera, string RGBFrameResolution, int RGBFrameRate, int FOV,
-                    int depthFrameRate);
-    ~BinocularCamera();
+    Camera();
+    Camera(string model, string camera, string RGBFrameResolution, int RGBFrameRate, int FOV,
+           int depthFrameRate);
+    ~Camera();
 
     void setmodel(string model);
     string getmodel();
@@ -42,8 +42,8 @@ public:
     int getdepthFrameRate();
 
     void print();
-    friend ostream &operator<<(ostream &out, const BinocularCamera &binocularCamera);
-    friend istream &operator>>(istream &in, BinocularCamera &binocularCamera);
+    friend ostream &operator<<(ostream &out, const Camera &binocularCamera);
+    friend istream &operator>>(istream &in, Camera &binocularCamera);
 
     void save();
     json toJson();

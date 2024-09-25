@@ -2,14 +2,14 @@
 #include <fstream>
 #include <vector>
 
-#include "../include/Student.h"
-#include "../include/BasePlate.h"
-#include "../include/AGXKit.h"
-#include "../include/BinocularCamera.h"
-#include "../include/MultiLineLidar.h"
-#include "../include/NineAxisGyroscope.h"
-#include "../include/SongLingCar.h"
-#include "../include/relational.h"
+#include "include/Student.h"
+#include "include/car_parts/BasePlate.h"
+#include "include/car_parts/AGXKit.h"
+#include "include/car_parts/Camera.h"
+#include "include/car_parts/Lidar.h"
+#include "include/car_parts/Gyroscope.h"
+#include "include/Car.h"
+#include "include/relational.h"
 
 using namespace std;
 using namespace nlohmann;
@@ -38,34 +38,34 @@ int main() {
             }
             BasePlate basePlate("dp12345678", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10, tires);
             AGXKit agxKit("AGX Xavier", 32, 512, 64, 32, 32);
-            BinocularCamera binocularCamera("RealSense D435i", "D430", "1920 1080", 30, 8758, 90);
-            MultiLineLidar multiLineLidar("RS-Helios-16p", 16, 100, 8);
-            NineAxisGyroscope nineAxisGyroscope("CH110", "NXP");
+            Camera binocularCamera("RealSense D435i", "D430", "1920 1080", 30, 8758, 90);
+            Lidar multiLineLidar("RS-Helios-16p", 16, 100, 8);
+            Gyroscope nineAxisGyroscope("CH110", "NXP");
             LCD lcd("11.6", "super");
-            BatteryModule batteryModule("24V/15Ah", "24V", 2);
+            Battery batteryModule("24V/15Ah", "24V", 2);
 
             //造零件集合
             vector<AGXKit> agxKits;
             agxKits.push_back(agxKit);
-            vector<BinocularCamera> binocularCameras;
+            vector<Camera> binocularCameras;
             binocularCameras.push_back(binocularCamera);
-            vector<MultiLineLidar> multiLineLidars;
+            vector<Lidar> multiLineLidars;
             multiLineLidars.push_back(multiLineLidar);
-            vector<NineAxisGyroscope> nineAxisGyroscopes;
+            vector<Gyroscope> nineAxisGyroscopes;
             nineAxisGyroscopes.push_back(nineAxisGyroscope);
             vector<LCD> lcds;
             lcds.push_back(lcd);
-            vector<BatteryModule> batteryModules;
+            vector<Battery> batteryModules;
             batteryModules.push_back(batteryModule);
 
             //造10台松灵小车
-            vector<SongLingCar> songLingCars;
+            vector<Car> songLingCars;
             for (int i = 1; i <= 10; i++) {
                 string id = "cqusn" + to_string(i).insert(0, 16 - to_string(i).length(), '0');
                 basePlate.setID("dp" + to_string(i).insert(0, 8 - to_string(i).length(), '0'));
-                SongLingCar songLingCar(id, basePlate, agxKits, binocularCameras, multiLineLidars, nineAxisGyroscopes,
-                                        lcds,
-                                        batteryModules);
+                Car songLingCar(id, basePlate, agxKits, binocularCameras, multiLineLidars, nineAxisGyroscopes,
+                                lcds,
+                                batteryModules);
                 songLingCars.push_back(songLingCar);
             }
             vector<Student> students;
@@ -87,19 +87,20 @@ int main() {
             for (auto x: relationals) {
                 j.push_back(x.toJson());
             }
-            ofstream out("out.txt");
+            ofstream out("out.json");
             out << j;
             out.close();
+            cout<<"初始化成功"<<endl;
         }
         if (choice == 2) {
             //in
             try {
-                ifstream in("out.txt");
+                ifstream in("out.json");
                 json j;
                 in >> j;
                 vector<relational> relationals;
                 for (auto x: j) {
-                    relational relational(new Student(), new SongLingCar());
+                    relational relational(new Student(), new Car());
                     relational.fromJson(x);
                     relationals.push_back(relational);
                 }
@@ -137,17 +138,17 @@ int main() {
             }
         }
         if (choice == 3) {
-            SongLingCar songLingCar("cqusn0000000000000",
-                                    BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10,
+            Car songLingCar("cqusn0000000000000",
+                            BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10,
                                               vector<Tire>(4, Tire("公路轮、麦克纳姆轮", 175))),
-                                    vector<AGXKit>(1, AGXKit("AGX Xavier", 32, 512, 64, 32, 32)),
-                                    vector<BinocularCamera>(1,
-                                                            BinocularCamera("RealSense D435i", "D430", "1920 1080", 30,
-                                                                            8758, 90)),
-                                    vector<MultiLineLidar>(1, MultiLineLidar("RS-Helios-16p", 16, 100, 8)),
-                                    vector<NineAxisGyroscope>(1, NineAxisGyroscope("CH110", "NXP")),
-                                    vector<LCD>(1, LCD("11.6", "super")),
-                                    vector<BatteryModule>(1, BatteryModule("24V/15Ah", "24V", 2)));
+                            vector<AGXKit>(1, AGXKit("AGX Xavier", 32, 512, 64, 32, 32)),
+                            vector<Camera>(1,
+                                                   Camera("RealSense D435i", "D430", "1920 1080", 30,
+                                                          8758, 90)),
+                            vector<Lidar>(1, Lidar("RS-Helios-16p", 16, 100, 8)),
+                            vector<Gyroscope>(1, Gyroscope("CH110", "NXP")),
+                            vector<LCD>(1, LCD("11.6", "super")),
+                            vector<Battery>(1, Battery("24V/15Ah", "24V", 2)));
             cout << "1.print 小车信息" << endl;
             cout << "2.print 底盘信息" << endl;
             cout << "3.print AGX套件信息" << endl;
@@ -222,17 +223,17 @@ int main() {
             }
         }
         if (choice == 4) {
-            SongLingCar songLingCar("cqusn0000000000000",
-                                    BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10,
+            Car songLingCar("cqusn0000000000000",
+                            BasePlate("dp00000000", "SCOUT MINI", 451, 490, 115, 0, "四轮四驱", 10,
                                               vector<Tire>(4, Tire("公路轮、麦克纳姆轮", 175))),
-                                    vector<AGXKit>(1, AGXKit("AGX Xavier", 32, 512, 64, 32, 32)),
-                                    vector<BinocularCamera>(1,
-                                                            BinocularCamera("RealSense D435i", "D430", "1920 1080", 30,
-                                                                            8758, 90)),
-                                    vector<MultiLineLidar>(1, MultiLineLidar("RS-Helios-16p", 16, 100, 8)),
-                                    vector<NineAxisGyroscope>(1, NineAxisGyroscope("CH110", "NXP")),
-                                    vector<LCD>(1, LCD("11.6", "super")),
-                                    vector<BatteryModule>(1, BatteryModule("24V/15Ah", "24V", 2)));
+                            vector<AGXKit>(1, AGXKit("AGX Xavier", 32, 512, 64, 32, 32)),
+                            vector<Camera>(1,
+                                                   Camera("RealSense D435i", "D430", "1920 1080", 30,
+                                                          8758, 90)),
+                            vector<Lidar>(1, Lidar("RS-Helios-16p", 16, 100, 8)),
+                            vector<Gyroscope>(1, Gyroscope("CH110", "NXP")),
+                            vector<LCD>(1, LCD("11.6", "super")),
+                            vector<Battery>(1, Battery("24V/15Ah", "24V", 2)));
             cout << "1.save 小车信息" << endl;
             cout << "2.save 底盘信息" << endl;
             cout << "3.save AGX套件信息" << endl;

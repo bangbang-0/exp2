@@ -1,6 +1,6 @@
 #include "../include/relational.h"
 
-relational::relational(Student *student, SongLingCar *songLingCar) {
+relational::relational(Student *student, Car *songLingCar) {
     this->student = student;
     this->songLingCar = songLingCar;
 }

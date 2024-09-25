@@ -1,4 +1,4 @@
-#include "../include/LCD.h"
+#include "../../include/car_parts/LCD.h"
 
 LCD::LCD() {
     this->size = "";

@@ -1,10 +1,10 @@
-#include "../include/SongLingCar.h"
+#include "../include/Car.h"
 
-SongLingCar::SongLingCar() = default;
+Car::Car() = default;
 
-SongLingCar::SongLingCar(string id, BasePlate basePlate, vector<AGXKit> agxKit, vector<BinocularCamera> binocularCamera,
-                         vector<MultiLineLidar> multiLineLidar, vector<NineAxisGyroscope> nineAxisGyroscope, vector<LCD> lcd,
-                         vector<BatteryModule> batteryModule) {
+Car::Car(string id, BasePlate basePlate, vector<AGXKit> agxKit, vector<Camera> binocularCamera,
+         vector<Lidar> multiLineLidar, vector<Gyroscope> nineAxisGyroscope, vector<LCD> lcd,
+         vector<Battery> batteryModule) {
     this->id = id;
     this->basePlate = basePlate;
     this->agxKit = agxKit;
@@ -15,77 +15,77 @@ SongLingCar::SongLingCar(string id, BasePlate basePlate, vector<AGXKit> agxKit, 
     this->batteryModule = batteryModule;
 }
 
-SongLingCar::~SongLingCar() = default;
+Car::~Car() = default;
 
-void SongLingCar::setid(string id) {
+void Car::setid(string id) {
     this->id = id;
 }
 
-string SongLingCar::getid() {
+string Car::getid() {
     return this->id;
 }
 
-void SongLingCar::setBasePlateid(string id) {
+void Car::setBasePlateid(string id) {
     this->basePlate.setID(id);
 }
 
-void SongLingCar::setBasePlate(BasePlate basePlate) {
+void Car::setBasePlate(BasePlate basePlate) {
     this->basePlate = basePlate;
 }
 
-BasePlate SongLingCar::getBasePlate() {
+BasePlate Car::getBasePlate() {
     return this->basePlate;
 }
 
-void SongLingCar::setagxKit(vector<AGXKit> agxKit) {
+void Car::setagxKit(vector<AGXKit> agxKit) {
     this->agxKit = agxKit;
 }
 
-vector<AGXKit> SongLingCar::getagxKit() {
+vector<AGXKit> Car::getagxKit() {
     return this->agxKit;
 }
 
-void SongLingCar::setbinocularCamera(vector<BinocularCamera> binocularCamera) {
+void Car::setbinocularCamera(vector<Camera> binocularCamera) {
     this->binocularCamera = binocularCamera;
 }
 
-vector<BinocularCamera> SongLingCar::getbinocularCamera() {
+vector<Camera> Car::getbinocularCamera() {
     return this->binocularCamera;
 }
 
-void SongLingCar::setmultiLineLidar(vector<MultiLineLidar> multiLineLidar) {
+void Car::setmultiLineLidar(vector<Lidar> multiLineLidar) {
     this->multiLineLidar = multiLineLidar;
 }
 
-vector<MultiLineLidar> SongLingCar::getmultiLineLidar() {
+vector<Lidar> Car::getmultiLineLidar() {
     return this->multiLineLidar;
 }
 
-void SongLingCar::setnineAxisGyroscope(vector<NineAxisGyroscope> nineAxisGyroscope) {
+void Car::setnineAxisGyroscope(vector<Gyroscope> nineAxisGyroscope) {
     this->nineAxisGyroscope = nineAxisGyroscope;
 }
 
-vector<NineAxisGyroscope> SongLingCar::getnineAxisGyroscope() {
+vector<Gyroscope> Car::getnineAxisGyroscope() {
     return this->nineAxisGyroscope;
 }
 
-void SongLingCar::setlcd(vector<LCD> lcd) {
+void Car::setlcd(vector<LCD> lcd) {
     this->lcd = lcd;
 }
 
-vector<LCD> SongLingCar::getlcd() {
+vector<LCD> Car::getlcd() {
     return this->lcd;
 }
 
-void SongLingCar::setbatteryModule(vector<BatteryModule> batteryModule) {
+void Car::setbatteryModule(vector<Battery> batteryModule) {
     this->batteryModule = batteryModule;
 }
 
-vector<BatteryModule> SongLingCar::getbatteryModule() {
+vector<Battery> Car::getbatteryModule() {
     return this->batteryModule;
 }
 
-void SongLingCar::print() {
+void Car::print() {
     cout << "编号：" << this->id << endl;
     cout << "底盘：" << endl;
     basePlate.print();
@@ -94,15 +94,15 @@ void SongLingCar::print() {
         x.print();
     }
     cout << "双目摄像头(" << binocularCamera.size() << "个)：" << endl;
-    for (BinocularCamera x : binocularCamera) {
+    for (Camera x : binocularCamera) {
         x.print();
     }
     cout << "多线激光雷达(" << multiLineLidar.size() << "个)：" << endl;
-    for (MultiLineLidar x : multiLineLidar) {
+    for (Lidar x : multiLineLidar) {
         x.print();
     }
     cout << "9轴陀螺仪(" << nineAxisGyroscope.size() << "个)：" << endl;
-    for (NineAxisGyroscope x : nineAxisGyroscope) {
+    for (Gyroscope x : nineAxisGyroscope) {
         x.print();
     }
     cout << "液晶显示屏(" << lcd.size() << "个)：" << endl;
@@ -110,12 +110,12 @@ void SongLingCar::print() {
         x.print();
     }
     cout << "电池模块(" << batteryModule.size() << "个)：" << endl;
-    for (BatteryModule x : batteryModule) {
+    for (Battery x : batteryModule) {
         x.print();
     }
 }
 
-ostream &operator<<(ostream &out, const SongLingCar &songLingCar) {
+ostream &operator<<(ostream &out, const Car &songLingCar) {
     out << "编号：" << songLingCar.id << endl;
     out << "底盘：" << endl;
     out << songLingCar.basePlate;
@@ -146,7 +146,7 @@ ostream &operator<<(ostream &out, const SongLingCar &songLingCar) {
     return out;
 }
 
-istream &operator>>(istream &in, SongLingCar &songLingCar) {
+istream &operator>>(istream &in, Car &songLingCar) {
     in >> songLingCar.id >> songLingCar.basePlate;
     int agxKitSize;
     in >> agxKitSize;
@@ -158,21 +158,21 @@ istream &operator>>(istream &in, SongLingCar &songLingCar) {
     int binocularCameraSize;
     in >> binocularCameraSize;
     for (int i = 0; i < binocularCameraSize; i++) {
-        BinocularCamera binocularCamera;
+        Camera binocularCamera;
         in >> binocularCamera;
         songLingCar.binocularCamera.push_back(binocularCamera);
     }
     int multiLineLidarSize;
     in >> multiLineLidarSize;
     for (int i = 0; i < multiLineLidarSize; i++) {
-        MultiLineLidar multiLineLidar;
+        Lidar multiLineLidar;
         in >> multiLineLidar;
         songLingCar.multiLineLidar.push_back(multiLineLidar);
     }
     int nineAxisGyroscopeSize;
     in >> nineAxisGyroscopeSize;
     for (int i = 0; i < nineAxisGyroscopeSize; i++) {
-        NineAxisGyroscope nineAxisGyroscope;
+        Gyroscope nineAxisGyroscope;
         in >> nineAxisGyroscope;
         songLingCar.nineAxisGyroscope.push_back(nineAxisGyroscope);
     }
@@ -186,21 +186,21 @@ istream &operator>>(istream &in, SongLingCar &songLingCar) {
     int batteryModuleSize;
     in >> batteryModuleSize;
     for (int i = 0; i < batteryModuleSize; i++) {
-        BatteryModule batteryModule;
+        Battery batteryModule;
         in >> batteryModule;
         songLingCar.batteryModule.push_back(batteryModule);
     }
     return in;
 }
 
-void SongLingCar::save() {
+void Car::save() {
     json j = this->toJson();
-    ofstream out("SongLingCar" + to_string(time(nullptr)) + ".json");
+    ofstream out("Car" + to_string(time(nullptr)) + ".json");
     out << j;
     out.close();
 }
 
-json SongLingCar::toJson() {
+json Car::toJson() {
     json j;
     j["id"] = this->id;
     j["basePlate"] = this->basePlate.toJson();
@@ -210,17 +210,17 @@ json SongLingCar::toJson() {
     }
     j["agxKit"] = agxKitJson;
     json binocularCameraJson;
-    for (BinocularCamera x : this->binocularCamera) {
+    for (Camera x : this->binocularCamera) {
         binocularCameraJson.push_back(x.toJson());
     }
     j["binocularCamera"] = binocularCameraJson;
     json multiLineLidarJson;
-    for (MultiLineLidar x : this->multiLineLidar) {
+    for (Lidar x : this->multiLineLidar) {
         multiLineLidarJson.push_back(x.toJson());
     }
     j["multiLineLidar"] = multiLineLidarJson;
     json nineAxisGyroscopeJson;
-    for (NineAxisGyroscope x : this->nineAxisGyroscope) {
+    for (Gyroscope x : this->nineAxisGyroscope) {
         nineAxisGyroscopeJson.push_back(x.toJson());
     }
     j["nineAxisGyroscope"] = nineAxisGyroscopeJson;
@@ -230,14 +230,14 @@ json SongLingCar::toJson() {
     }
     j["lcd"] = lcdJson;
     json batteryModuleJson;
-    for (BatteryModule x : this->batteryModule) {
+    for (Battery x : this->batteryModule) {
         batteryModuleJson.push_back(x.toJson());
     }
     j["batteryModule"] = batteryModuleJson;
     return j;
 }
 
-void SongLingCar::fromJson(json j) {
+void Car::fromJson(json j) {
     this->id = j["id"];
     this->basePlate.fromJson(j["basePlate"]);
     for (const auto &x : j["agxKit"]) {
@@ -246,17 +246,17 @@ void SongLingCar::fromJson(json j) {
         this->agxKit.push_back(agxKit);
     }
     for (const auto &x : j["binocularCamera"]) {
-        BinocularCamera binocularCamera;
+        Camera binocularCamera;
         binocularCamera.fromJson(x);
         this->binocularCamera.push_back(binocularCamera);
     }
     for (const auto &x : j["multiLineLidar"]) {
-        MultiLineLidar multiLineLidar;
+        Lidar multiLineLidar;
         multiLineLidar.fromJson(x);
         this->multiLineLidar.push_back(multiLineLidar);
     }
     for (const auto &x : j["nineAxisGyroscope"]) {
-        NineAxisGyroscope nineAxisGyroscope;
+        Gyroscope nineAxisGyroscope;
         nineAxisGyroscope.fromJson(x);
         this->nineAxisGyroscope.push_back(nineAxisGyroscope);
     }
@@ -266,7 +266,7 @@ void SongLingCar::fromJson(json j) {
         this->lcd.push_back(lcd);
     }
     for (const auto &x : j["batteryModule"]) {
-        BatteryModule batteryModule;
+        Battery batteryModule;
         batteryModule.fromJson(x);
         this->batteryModule.push_back(batteryModule);
     }
